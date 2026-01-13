@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS sections (
   id SERIAL PRIMARY KEY,
   event_id INTEGER NOT NULL REFERENCES events(id) ON DELETE CASCADE,
   name TEXT NOT NULL,
-  price NUMERIC(10, 2) NOT NULL CHECK (price >= 0),
+  price NUMERIC(10) NOT NULL CHECK (price >= 0),
   capacity INTEGER NOT NULL CHECK (capacity >= 0),
   remaining INTEGER NOT NULL CHECK (remaining >= 0 AND remaining <= capacity),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),

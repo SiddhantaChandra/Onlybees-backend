@@ -1,6 +1,9 @@
-require('dotenv').config()
+const path = require('path')
+const dotenv = require('dotenv')
 const express = require('express')
 const eventsRouter = require('./routes/events')
+
+dotenv.config()
 
 const app = express()
 const port = process.env.PORT

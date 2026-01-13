@@ -1,6 +1,5 @@
-# Ticket Booking API
+# Onlybees Backend Assignment
 
-Backend assignment for a ticketing system with concurrency-safe booking using PostgreSQL row-level locking.
 
 # Locking Strategy & Concurrency Handling
 

@@ -51,13 +51,17 @@ DB_NAME=onlybees
 ```bash
 psql -h localhost -p 5432 -U postgres -d onlybees -f db/schema.sql
 ```
-4) Seed data (creates event 99/section 100 with capacity 5):
+4) Seed data:
 ```bash
 psql -h localhost -p 5432 -U postgres -d onlybees -f db/seed.sql
 ```
 5) Run the API:
 ```bash
 npm run start
+```
+6) Run the test:
+```bash
+npm run concurrency:test
 ```
 
 ## Endpoints
@@ -67,7 +71,7 @@ npm run start
 - POST /book - Books seats with locking.
 
 ## Concurrency Test Script
-Seeds include a deterministic test object (event 99, section 100, capacity 5). Run:
+Seeds include a test object (event 99, section 100, capacity 5). Run:
 ```bash
 npm run concurrency:test
 ```

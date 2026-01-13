@@ -1,0 +1,34 @@
+# Node modules
+node_modules/
+
+# Distribution folder
+dist/
+
+# Environment
+.env
+.env.local
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Coverage and build
+coverage/
+build/
+out/
+.next/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Packages
+*.tgz
+dist/

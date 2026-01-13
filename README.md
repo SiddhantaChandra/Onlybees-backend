@@ -61,10 +61,10 @@ npm run start
 ```
 
 ## Endpoints
-- POST /events/create - create event with sections (remaining initialized to capacity).
-- GET /events/:id - fetch event and sections (capacity, remaining).
-- GET /bookings - list bookings with event & section info.
-- POST /book - book seats with locking.
+- POST /events/create - Creates event with sections (remaining initialized to capacity).
+- GET /events/:id - Fetches event and sections (capacity, remaining).
+- GET /bookings - Lists all the bookings with event & section info.
+- POST /book - Books seats with locking.
 
 ## Concurrency Test Script
 Seeds include a deterministic test object (event 99, section 100, capacity 5). Run:

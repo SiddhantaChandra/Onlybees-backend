@@ -1,5 +1,5 @@
 const express = require('express')
-const { getClient } = require('../db')
+const { getClient, query } = require('../db')
 
 const router = express.Router()
 
@@ -50,6 +50,29 @@ router.post('/events/create', async (req, res, next) => {
 		return next(err)
 	} finally {
 		client.release()
+	}
+})
+
+router.get('/events/:id', async (req, res, next) => {
+	const id = Number(req.params.id)
+	if (!Number.isInteger(id) || id <= 0) {
+		return res.status(400).json({ error: 'Invalid event id' })
+	}
+
+	try {
+		const eventResult = await query('SELECT id, name FROM events WHERE id = $1', [id])
+		if (eventResult.rows.length === 0) {
+			return res.status(404).json({ error: 'Event not found' })
+		}
+
+		const sectionsResult = await query(
+			'SELECT id, name, price, capacity, remaining FROM sections WHERE event_id = $1 ORDER BY id',
+			[id]
+		)
+
+		return res.json({ id: eventResult.rows[0].id, name: eventResult.rows[0].name, sections: sectionsResult.rows })
+	} catch (err) {
+		return next(err)
 	}
 })
 

@@ -72,6 +72,8 @@ Seeds include a deterministic test object (event 99, section 100, capacity 5). R
 npm run concurrency:test
 ```
 
+![Concurrency test screenshot](https://raw.githubusercontent.com/SiddhantaChandra/Onlybees-backend/refs/heads/main/misc/test-ss.png)
+
 Script behavior:
 - Fires 10 parallel POST /book requests with 5 quantity of tickets.
 - Prints success/failure counts and sample errors.

@@ -2,13 +2,15 @@
 
 Backend assignment for a ticketing system with concurrency-safe booking using PostgreSQL row-level locking.
 
+# Locking Strategy & Concurrency Handling
+
 ## What was the overselling problem?
 A: In a high-traffic ticketing system, multiple users may attempt to book the same limited set of seats at the exact same time. Without proper concurrency control, each request can read the same stale availability value (for e.g., remaining = 5) and independently decide that seats are available. When these requests then update the database concurrently, the system may sell more tickets than the actual capacity. This race condition results in overselling, which is a common failure in booking systems
 
 ## What exact mechanism did I implement?
 A: Firstly, I chose a SQL database due to its ACID properties, then I implemented concurrency control using transactions with row-level locking.
 
-1. The booking system uses a single database transaction (like BEGIN -> COMMIR or ROLLBACK).
+1. The booking system uses a single database transaction (like BEGIN -> COMMIT or ROLLBACK).
 2. A row-level exclusive lock on the target section using:
 ```SELECT ... FROM sections WHERE id = ? AND event_id = ? FOR UPDATE```
 
@@ -62,7 +64,7 @@ npm run start
 - POST /events/create — create event with sections (remaining initialized to capacity).
 - GET /events/:id — fetch event and sections (capacity, remaining).
 - GET /bookings — list bookings with event & section info.
-- POST /book — book seats with locking (body: { eventId, sectionId, qty }).
+- POST /book — book seats with locking.
 
 ## Locking Strategy & Concurrency Handling
 - Booking runs inside a single DB transaction.
@@ -83,7 +85,6 @@ Script behavior:
 - Prints success/failure counts and sample errors.
 - Fetches the section after the run to report capacity, remaining, and total booked by the run, warning if oversell is detected.
 
-
 ## Notes
-- If you change seed data, update TEST_EVENT_ID / TEST_SECTION_ID accordingly.
+- If you change seed data, update TEST_EVENT_ID and TEST_SECTION_ID accordingly.
 - To reset state for tests, re-run `db/seed.sql`.

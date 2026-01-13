@@ -61,18 +61,10 @@ npm run start
 ```
 
 ## Endpoints
-- POST /events/create — create event with sections (remaining initialized to capacity).
-- GET /events/:id — fetch event and sections (capacity, remaining).
-- GET /bookings — list bookings with event & section info.
-- POST /book — book seats with locking.
-
-## Locking Strategy & Concurrency Handling
-- Booking runs inside a single DB transaction.
-- `SELECT ... FOR UPDATE` on the target section row with `id` and `event_id` to lock only the intended section.
-- Validate existence, event match and remaining is greateer than or qual to quantity while the row is locked.
-- Atomically update `remaining` and insert a booking then commit.
-- This prevents overselling under concurrent requests because competing transactions queue on the same locked row before reading/updating `remaining`.
-- Improvements for production: add retry on deadlock/timeouts, per-event rate limiting, idempotency keys, and better observability/metrics.
+- POST /events/create - create event with sections (remaining initialized to capacity).
+- GET /events/:id - fetch event and sections (capacity, remaining).
+- GET /bookings - list bookings with event & section info.
+- POST /book - book seats with locking.
 
 ## Concurrency Test Script
 Seeds include a deterministic test object (event 99, section 100, capacity 5). Run:

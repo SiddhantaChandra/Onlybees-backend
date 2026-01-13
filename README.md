@@ -71,6 +71,8 @@ npm run concurrency:test
 - POST /book - Books seats with locking.
 
 ## Concurrency Test Script
+Script source: [scripts/concurrency-test.js](scripts/concurrency-test.js)
+
 Seeds include a test object (event 99, section 100, capacity 5). Run:
 ```bash
 npm run concurrency:test
@@ -79,10 +81,10 @@ npm run concurrency:test
 ![Concurrency test screenshot](https://raw.githubusercontent.com/SiddhantaChandra/Onlybees-backend/refs/heads/main/misc/test-ss.png)
 
 Script behavior:
-- Fires 10 parallel POST /book requests with 5 quantity of tickets.
+- Executes 10 parallel POST /book requests with 5 quantity of tickets.
 - Prints success/failure counts and sample errors.
-- Fetches the section after the run to report capacity, remaining, and total booked by the run, warning if oversell is detected.
+- Fetches the section after the run to report capacity, remaining, and total booked by the run and a warning if oversell is detected.
 
 ## Notes
 - If you change seed data, update TEST_EVENT_ID and TEST_SECTION_ID accordingly.
-- To reset state for tests, re-run `db/seed.sql`.
+- To reset state for tests, re-run `psql -h localhost -p 5432 -U postgres -d onlybees -f db/seed.sql`.

@@ -1,10 +1,13 @@
 require('dotenv').config()
 const express = require('express')
+const eventsRouter = require('./routes/events')
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 
 app.use(express.json())
+
+app.use(eventsRouter)
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Not found' })
